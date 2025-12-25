@@ -3,123 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAM Landing Page</title>
+    <title>SAM - Segment Anything Model | Plataforma IA</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #06b6d4;
+            --accent-2: #8b5cf6;
+            --text: #f1f5f9;
+            --text-dim: #94a3b8;
         }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--primary);
+            color: var(--text);
             line-height: 1.6;
-            color: #333;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 0;
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
         }
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+            top: -250px;
+            right: -250px;
+            animation: pulse 4s ease-in-out infinite;
         }
-        .subtitle {
-            font-size: 1.3em;
-            opacity: 0.9;
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
         }
-        .main-content {
-            padding: 60px 0;
+        
+        .hero-content { position: relative; z-index: 1; }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .features {
+        
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 18px 48px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(6, 182, 212, 0.5);
+        }
+        
+        .section { padding: 100px 0; }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        
+        .steps {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
-            margin-top: 40px;
+            margin-top: 50px;
         }
-        .feature-card {
-            padding: 30px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            transition: transform 0.3s;
+        
+        .step {
+            background: var(--secondary);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            transition: all 0.3s ease;
         }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        
+        .step:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.2);
         }
-        .feature-card h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-        .cta-section {
-            background: #f8f9fa;
-            padding: 80px 0;
-            text-align: center;
-        }
-        .btn {
+        
+        .step-number {
             display: inline-block;
-            padding: 15px 40px;
-            background: #667eea;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background: #764ba2;
-        }
-        footer {
-            background: #333;
-            color: white;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
             text-align: center;
-            padding: 30px 0;
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .step h3 { font-size: 1.5rem; margin-bottom: 15px; }
+        .step p { color: var(--text-dim); line-height: 1.8; }
+        
+        .demo {
+            background: var(--secondary);
+            text-align: center;
+        }
+        
+        .demo-placeholder {
+            max-width: 800px;
+            margin: 0 auto;
+            aspect-ratio: 16/9;
+            background: var(--primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--accent);
+        }
+        
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .benefit {
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(139, 92, 246, 0.05));
+            border-radius: 15px;
+            border: 1px solid rgba(6, 182, 212, 0.1);
+        }
+        
+        .benefit-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .benefit h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .benefit p { color: var(--text-dim); }
+        
+        .pricing {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .price-card {
+            background: var(--secondary);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid rgba(6, 182, 212, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .price-card:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+        
+        .price-card.featured {
+            border-color: var(--accent);
+            box-shadow: 0 20px 60px rgba(6, 182, 212, 0.3);
+        }
+        
+        .price-card h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 20px 0;
+        }
+        
+        .price-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .price-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .price-features li:before {
+            content: '\2713 ';
+            color: var(--accent);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .faq { max-width: 800px; margin: 0 auto; }
+        
+        .faq-item {
+            background: var(--secondary);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(6, 182, 212, 0.1);
+        }
+        
+        .faq-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .faq-item p { color: var(--text-dim); line-height: 1.8; }
+        
+        footer {
+            background: var(--secondary);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(6, 182, 212, 0.1);
+        }
+        
+        footer p { color: var(--text-dim); }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
-    <header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content container">
+            <h1>SAM: Segment Anything Model</h1>
+            <p>Revoluciona tu flujo de trabajo con IA de segmentación instantánea. Ahorra 4 horas diarias en tareas de etiquetado.</p>
+            <a href="#pricing" class="cta-button">Comenzar Ahora</a>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section">
         <div class="container">
-            <h1>SAM Landing Page</h1>
-            <p class="subtitle">Soluciones profesionales para tu negocio</p>
-        </div>
-    </header>
-
-    <div class="main-content container">
-        <h2>Características Principales</h2>
-        <div class="features">
-            <div class="feature-card">
-                <h3>🚀 Rápido y Eficiente</h3>
-                <p>Optimizado para máxima velocidad y rendimiento</p>
-            </div>
-            <div class="feature-card">
-                <h3>📱 Responsive</h3>
-                <p>Diseño adaptable a todos los dispositivos</p>
-            </div>
-            <div class="feature-card">
-                <h3>🎨 Diseño Moderno</h3>
-                <p>Interfaz limpia y profesional</p>
+            <h2 class="section-title">¿Cómo Funciona?</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <h3>Sube tu Imagen</h3>
+                    <p>Carga cualquier imagen desde tu dispositivo o URL. Soporta JPG, PNG y formatos RAW.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <h3>Selecciona Objetos</h3>
+                    <p>Haz clic en cualquier objeto o área. SAM detecta automáticamente los límites con precisión.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <h3>Exporta Resultados</h3>
+                    <p>Descarga máscaras en formato JSON, PNG o integra vía API en tu flujo de trabajo.</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="cta-section">
+    <!-- Demo Section -->
+    <section class="section demo">
         <div class="container">
-            <h2>¿Listo para comenzar?</h2>
-            <p style="margin: 20px 0;">Únete a miles de usuarios satisfechos</p>
-            <a href="#" class="btn">Comenzar Ahora</a>
+            <h2 class="section-title">SAM en Acción</h2>
+            <div class="demo-placeholder">
+                <p style="color: var(--text-dim); font-size: 1.2rem;">[Demo Interactivo o Video]</p>
+            </div>
         </div>
-    </div>
+    </section>
 
+    <!-- Benefits -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Beneficios Clave</h2>
+            <div class="benefits">
+                <div class="benefit">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Velocidad Extrema</h3>
+                    <p>Segmenta imágenes en menos de 2 segundos. 50x más rápido que herramientas tradicionales.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Precisión Superior</h3>
+                    <p>95% de precisión en límites de objetos gracias a modelos entrenados en 1B+ imágenes.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">🚀</div>
+                    <h3>Zero Training</h3>
+                    <p>No requiere entrenamiento ni configuración. Funciona desde el primer uso.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">🔗</div>
+                    <h3>Integración API</h3>
+                    <p>REST API lista para producción. Documentación completa y ejemplos en Python, JavaScript y Go.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="section">
+        <div class="container">
+            <h2 class="section-title">Planes y Precios</h2>
+            <div class="pricing">
+                <div class="price-card">
+                    <h3>Starter</h3>
+                    <div class="price">$29<span style="font-size: 1rem;">/mes</span></div>
+                    <ul class="price-features">
+                        <li>1,000 segmentaciones/mes</li>
+                        <li>API REST básica</li>
+                        <li>Soporte por email</li>
+                        <li>Documentación completa</li>
+                    </ul>
+                    <a href="#" class="cta-button">Empezar</a>
+                </div>
+                <div class="price-card featured">
+                    <h3>Pro</h3>
+                    <div class="price">$99<span style="font-size: 1rem;">/mes</span></div>
+                    <ul class="price-features">
+                        <li>10,000 segmentaciones/mes</li>
+                        <li>API REST avanzada</li>
+                        <li>Soporte prioritario 24/7</li>
+                        <li>Modelos personalizados</li>
+                        <li>Webhooks y notificaciones</li>
+                    </ul>
+                    <a href="#" class="cta-button">Empezar</a>
+                </div>
+                <div class="price-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <ul class="price-features">
+                        <li>Segmentaciones ilimitadas</li>
+                        <li>Despliegue on-premise</li>
+                        <li>Soporte dedicado</li>
+                        <li>SLA garantizado</li>
+                        <li>Entrenamiento personalizado</li>
+                    </ul>
+                    <a href="#" class="cta-button">Contactar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Preguntas Frecuentes</h2>
+            <div class="faq">
+                <div class="faq-item">
+                    <h3>¿Qué es SAM?</h3>
+                    <p>Segment Anything Model (SAM) es un modelo de IA revolucionario desarrollado por Meta AI que permite segmentar cualquier objeto en cualquier imagen con un solo clic. No requiere entrenamiento previo ni configuración compleja.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>¿Cómo puedo integrar SAM en mi aplicación?</h3>
+                    <p>Ofrecemos una API REST simple y documentada que puedes integrar en cualquier lenguaje de programación. Incluimos SDKs oficiales para Python, JavaScript, y Go, además de ejemplos de código completos.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>¿Qué formatos de imagen soporta?</h3>
+                    <p>SAM soporta todos los formatos de imagen populares: JPG, PNG, WebP, TIFF, BMP, y formatos RAW de cámaras profesionales. También procesamos imágenes de alta resolución hasta 8K.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>¿Puedo cancelar mi suscripción?</h3>
+                    <p>Sí, puedes cancelar tu suscripción en cualquier momento sin penalizaciones. Mantendrás acceso hasta el final de tu periodo de facturación actual.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 SAM Landing Page. Todos los derechos reservados.</p>
+            <p>&copy; 2025 SAM Platform - Powered by GL Strategic | Engineering & Management</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">Todos los derechos reservados</p>
         </div>
     </footer>
 </body>
